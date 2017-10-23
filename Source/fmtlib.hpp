@@ -3,7 +3,7 @@
 
 namespace fmt
 {
-    
+
 void iswap(int &x, int &y)
 {
     x = x + y - (y = x);
@@ -57,12 +57,13 @@ void vec_max_min(int *in_ptr, int &xmax, int &xmin, int limit)
     }
 }
 
+// Reference: http://h14s.p5r.org/2012/09/0x5f3759df.html?mwh=1
 float fast_inv_sqrt(float x) {
     float xhalf = 0.5f * x;
     int i = *(int*)&x;         // evil floating point bit level hacking
-    i = 0x5f3759df - (i >> 1);  // what the fuck?
+    i = 0x5f3759df - (i >> 1);
     x = *(float*)&i;
-    x = x*(1.5f - (xhalf*x*x));
+    x = x * (1.5f - (xhalf * x * x)); // single newthon's method iteration
     return x;
 }
 
@@ -71,7 +72,7 @@ float fast_sqrt(float x) {
     int i = *(int*)&x;         // evil floating point bit level hacking
     i = 0x1fbd1df5 + (i >> 1);
     x = *(float*)&i;
-    x = x*(1.5f - (xhalf*x*x));
+    x = 0.5*x + xhalf/x; // single newthon's method iteration
     return x;
 }
 
